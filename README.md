@@ -1,3 +1,3 @@
-Попытка повторить результаты из <a href="http://pra.aps.org/abstract/PRA/v80/i4/e043618">статьи</a> (Moumita Gupta, Krishna Rai Dastidar).
+РџРѕРїС‹С‚РєР° РїРѕРІС‚РѕСЂРёС‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚С‹ РёР· <a href="http://pra.aps.org/abstract/PRA/v80/i4/e043618">СЃС‚Р°С‚СЊРё</a> (Moumita Gupta, Krishna Rai Dastidar).
 
-Все необходимые материалы -- в папке /docs/.
+Р’СЃРµ РЅРµРѕР±С…РѕРґРёРјС‹Рµ РјР°С‚РµСЂРёР°Р»С‹ -- РІ РїР°РїРєРµ /docs/.
