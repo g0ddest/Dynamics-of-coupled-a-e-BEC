@@ -51,10 +51,10 @@ phim    = zeros(kmax, Jmax);            % \phi_m (слои по времени — в строках) -
 phia    = zeros(kmax, Jmax);            % \phi_a (слои по времени — в строках) -- заполнить гауссианом (возможно лоренцаном на будущее).
 
 %phim(1, :) = sin((1:Jmax) / Jmax * pi);
-phia(1, :) = gaussmf(x, [xmax/6 xmax/2]);%sin((1:Jmax) / Jmax * pi);
+phia(1, :) = gaussmf(x, [xmax/12 0]);%sin((1:Jmax) / Jmax * pi);
 
 %% Расчёт
-%for k = 1:kmax-1                        % Шаг по времени
+for k = 1:kmax-1                        % Шаг по времени
     PHIAa   = sparse(Jmax, Jmax);       % Коэффициенты для нахождения phia
     PHIAb   = zeros(Jmax, 1);           % Свободные члены для нахождения phia
 
@@ -84,7 +84,7 @@ phia(1, :) = gaussmf(x, [xmax/6 xmax/2]);%sin((1:Jmax) / Jmax * pi);
         PHIAb(j)        = (-1i / dt + 0.5 / (h ^ 2) + 0.5 * Za) * phia(k, j) +...
             1 / (4 * h ^ 2) * (phia(k, j+1) + phia(k, j-1)) +...
              alpha1 * phim(k, j) * phia(k, j)' / x(j);
-        
+         
         % O_o WTF???
         PHIMa(1, 1)       = 1;                  % Левое граничное условие
         PHIMb(1)          = 0;                  %   (x=0)
@@ -103,7 +103,7 @@ phia(1, :) = gaussmf(x, [xmax/6 xmax/2]);%sin((1:Jmax) / Jmax * pi);
     end
     phia(k+1, :) = (PHIAa \ PHIAb).';   % Решаем трёхдиагональную систему
     phim(k+1, :) = (PHIMa \ PHIMb).';   % Решаем трёхдиагональную систему
-%end
+end
 
 hold on
 plot(abs(phia(1, :)), 'r');
@@ -112,6 +112,6 @@ title('k=1');
 
 figure
 hold on
-plot(abs(phia(2, :)), 'r');
+plot(abs(phia(k+1, :)), 'r');
 plot(abs(phim(2, :)), 'b');
 title('k=2');
