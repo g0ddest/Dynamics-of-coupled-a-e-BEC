@@ -63,12 +63,7 @@ phia(1, :) = gaussmf(x, [xmax/6 xmax/2]);%sin((1:Jmax) / Jmax * pi);
 
     for j = 2:Jmax-1                    % Шаг по пространству для phia
         
-        % O_o WTF???
-        PHIAa(1, 1)       = 1;                  % Левое граничное условие
-        PHIAb(1)          = 0;                  %   (x=0)
-        PHIAa(Jmax, Jmax) = 1;                  % Левое граничное условие
-        PHIAb(Jmax)       = exp(-x(Jmax)^2/4);  %   (x=?)
-        
+        PHIA
         % Большая квадратная скобка для phia
         Za  = 0.5 * x(j) ^ 2 + lambda_a1 * (...   
                 1 + 32 * a ^ 1.5 / (3 * sqrt(pi)) * abs(phia(k, j)) / x(j)...
@@ -85,12 +80,6 @@ phia(1, :) = gaussmf(x, [xmax/6 xmax/2]);%sin((1:Jmax) / Jmax * pi);
             1 / (4 * h ^ 2) * (phia(k, j+1) + phia(k, j-1)) +...
              alpha1 * phim(k, j) * phia(k, j)' / x(j);
         
-        % O_o WTF???
-        PHIMa(1, 1)       = 1;                  % Левое граничное условие
-        PHIMb(1)          = 0;                  %   (x=0)
-        PHIMa(Jmax, Jmax) = 1;                  % Левое граничное условие
-        PHIMb(Jmax)        = exp(-x(Jmax)^2/4);  %   (x=?)
-         
         % Большая квадратная скобка для phim
         Zb  = x(j) ^ 2 + epsilon1 + lambda_m1 * abs(phim(k, j)) ^ 2 / x(j) ^ 2 +...
             lambda_am1 * abs(phia(k, j)) ^ 2 / x(j) ^ 2 - beta21 - 1i * Gamma21;
@@ -106,12 +95,10 @@ phia(1, :) = gaussmf(x, [xmax/6 xmax/2]);%sin((1:Jmax) / Jmax * pi);
 %end
 
 hold on
-plot(abs(phia(1, :)), 'r');
-plot(abs(phim(1, :)), 'b');
-title('k=1');
+plot(phia(1, :), 'r');
+plot(phim(1, :), 'b');
 
 figure
 hold on
-plot(abs(phia(2, :)), 'r');
-plot(abs(phim(2, :)), 'b');
-title('k=2');
+plot(phia(2, :), 'r');
+plot(phim(2, :), 'b');
