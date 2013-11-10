@@ -1,19 +1,19 @@
 %% Исходные данные
 % Константы
-hbar    = 1.05457172647e-34;    % Постоянная Планка (нормированная)
+hbar    = 1; %1.05457172647e-34;   % Постоянная Планка (нормированная)
 
 % Параметры задачи
-chi     = hbar * 7.6e-7;
-Gamma1  = 1.629e-23;
-Gamma2  = 304.4;
-beta1   = 2.108e7;
-beta2   = 3.344e6;
-alpha   = 134.06;
-omega   = 2 * pi * 100;         	% Trap frequency
+chi     = hbar * 7.6 * 1.44/5.291772 * 2.418884 * 1e-9 ;
+Gamma1  = 1.629 * 2.418884/5.291772/5.291772/5.291772 * 1e-7;
+Gamma2  = 304.4 * 2.418884 * 1e-17;
+beta1   = 2.108 * 2.418884 * 1e-10;
+beta2   = 3.344 * 2.418884 * 1e-17;
+alpha   = 134.06 * 2.418884 * 1e-11;
+omega   = 2 * pi * 100  * 2.418884 * 1e-17;         	% Trap frequency
 N       = 5e5;                  	% Initial number of atoms
 
 m       = 85;		  				% atomic mass???
-a       = 17e-9;                	% s-wave scattering length (длина рассеивания s-волны)
+a       = 17e-9 /5.291772 *1e11 ;                	% s-wave scattering length (длина рассеивания s-волны)
 aHO     = sqrt(hbar/(2*m*omega));	% see Ref 23
 
 alpha1  = alpha / omega;
@@ -103,15 +103,12 @@ for k = 1:kmax-1                        % Шаг по времени
     end
     phia(k+1, :) = (PHIAa \ PHIAb).';   % Решаем трёхдиагональную систему
     phim(k+1, :) = (PHIMa \ PHIMb).';   % Решаем трёхдиагональную систему
+	
+	hold on
+    plot(abs(phia(k+1, :)), 'r');
+    plot(abs(phim(k+1, :)), 'b');
+    title('k=2');
 end
 
-hold on
-plot(abs(phia(1, :)), 'r');
-plot(abs(phim(1, :)), 'b');
-title('k=1');
-
-figure
-hold on
-plot(abs(phia(k+1, :)), 'r');
-plot(abs(phim(2, :)), 'b');
-title('k=2');
+figure(3); clf;
+mesh(x, tplot,  phia);  % Plot P(x,t) vs. x and t
